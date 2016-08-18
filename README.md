@@ -1,15 +1,14 @@
-# Black Box Testing Demo
+# Testing Demo
 
-This code demonstrates some differences between black box testing and mock interaction testing.
+This code demonstrates some different ways of black box functional and mock interaction style testing.
+
+Black box testing focuses on testing behaviors for the public interfaces of an object by verifying 
+only observable input and output behaviors.
 
 Mock testing focuses on testing interactions between an object and it's direct collaborators by verifying
 method calls directly.
 
-Black box testing focuses on testing behaviors for the public interfaces of an object by verifying inputs
-and outputs only.
-
-In both cases, collaborators are exposed to the consuming code via the constructor. This allows 
-all the dependencies to be injected by the consumer of the class. 
+These examples also show some differences between dependency injection and encapsulated dependencies.
 
 
 ## Link Repository Examples

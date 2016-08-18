@@ -9,15 +9,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.*;
 
-public class SimpleLinkRepositoryMockTest {
+public class LinkRepositoryMockTest {
 
     private EntityManager mockEntityManager;
-    private SimpleLinkRepository simpleLinkRepository;
+    private LinkRepository linkRepository;
 
     @Before
     public void before() {
         mockEntityManager = mock(EntityManager.class);
-        simpleLinkRepository = new SimpleLinkRepository(mockEntityManager);
+        linkRepository = new LinkRepository(mockEntityManager);
     }
 
     @Test
@@ -26,7 +26,7 @@ public class SimpleLinkRepositoryMockTest {
         when(mockEntityManager.find(Link.class, link.getId()))
             .thenReturn(link);
 
-        Link actualLink = simpleLinkRepository.findOne(link.getId());
+        Link actualLink = linkRepository.findOne(link.getId());
 
         assertThat(actualLink, is(link));
 

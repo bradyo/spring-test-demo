@@ -44,20 +44,25 @@ public class CachedLinkRepositoryIntegrationTest {
         assertThat(actualLink, is(link));
     }
 
+    /**
+     * Since this is a black-box functional test, we need to assert on the observable behavior of the
+     * method. Since this method includes caching, the observed behavior is performance.
+     *
+     * What we are actually want to test here is that subsequent gets perform better than first gets.
+     * Our acceptance criteria will be that subsequent gets perform twice as fast as first get with
+     * a >90% success rate.
+     */
     @Test
     public void testGetPerformance() {
-        // What we are actually want to test here is that subsequent gets perform better than first gets.
-        // Our acceptance criteria will be that subsequent gets perform twice as fast as first get with
-        // a >90% success rate
-
         Link link = cachedLinkRepository.save(newLink());
 
+        // Perform n trials, each doing to subsequent gets
         int numberOfTrials = 10;
         int numberFailed = 0;
         for (int i = 0; i < numberOfTrials; i++) {
             cache.clear();
-            long firstDuration = timeGet(link.getId());
-            long secondDuration = timeGet(link.getId());
+            long firstDuration = timedGet(link.getId());
+            long secondDuration = timedGet(link.getId());
             if (secondDuration > firstDuration / 2) {
                 numberFailed++;
             }
@@ -68,7 +73,7 @@ public class CachedLinkRepositoryIntegrationTest {
         assertThat(successRate, is(greaterThanOrEqualTo(acceptableSuccessRate)));
     }
 
-    private long timeGet(Long id) {
+    private long timedGet(Long id) {
         long firstStartTime = System.nanoTime();
         cachedLinkRepository.findOne(id);
         return System.nanoTime() - firstStartTime;

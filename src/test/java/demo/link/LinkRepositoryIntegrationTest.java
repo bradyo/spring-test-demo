@@ -17,23 +17,23 @@ import static org.hamcrest.core.Is.is;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @Transactional
-public class SimpleLinkRepositoryIntegrationTest {
+public class LinkRepositoryIntegrationTest {
 
     @Autowired
     private EntityManager entityManager;
 
-    private SimpleLinkRepository simpleLinkRepository;
+    private LinkRepository linkRepository;
 
     @Before
     public void before() {
-        simpleLinkRepository = new SimpleLinkRepository(entityManager);
+        linkRepository = new LinkRepository(entityManager);
     }
 
     @Test
     public void testGet() {
-        Link link = simpleLinkRepository.save(newLink());
+        Link link = linkRepository.save(newLink());
 
-        Link actualLink = simpleLinkRepository.findOne(link.getId());
+        Link actualLink = linkRepository.findOne(link.getId());
 
         assertThat(actualLink, is(link));
     }

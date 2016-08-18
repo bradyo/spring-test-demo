@@ -7,12 +7,12 @@ import org.springframework.stereotype.Component;
 import javax.persistence.EntityManager;
 
 @Component
-public class SimpleLinkRepository implements Repository<Link, Long> {
+public class LinkRepository implements Repository<Link, Long> {
 
     private final EntityManager entityManager;
 
     @Autowired
-    public SimpleLinkRepository(EntityManager entityManager) {
+    public LinkRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
