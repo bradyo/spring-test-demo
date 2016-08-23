@@ -14,7 +14,7 @@ public class RetryingBitlyLinkShorteningServiceFactory {
 
     private final BitlyRestTemplateFactory bitlyRestTemplateFactory;
 
-    public RetryingBitlyLinkShorteningService create(String accessToken) {
+    public RetryingBitlyLinkShorteningService create(String baseUrl, String accessToken) {
         RestTemplate restTemplate = bitlyRestTemplateFactory.create();
 
         // Use an exponential backoff policy
@@ -27,7 +27,7 @@ public class RetryingBitlyLinkShorteningServiceFactory {
         retryTemplate.setRetryPolicy(new AlwaysRetryPolicy());
         retryTemplate.setBackOffPolicy(backOffPolicy);
 
-        return new RetryingBitlyLinkShorteningService(restTemplate, retryTemplate, accessToken);
+        return new RetryingBitlyLinkShorteningService(restTemplate, retryTemplate, baseUrl, accessToken);
     }
 
 }

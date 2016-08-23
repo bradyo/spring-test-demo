@@ -6,11 +6,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class BitlyShortenResponse {
+public class BitlyShortenResponseData {
 
-    @JsonProperty("data")
-    private BitlyShortenResponseData data;
-
-    @JsonProperty("status_code")
-    private String statusCode;
+    @JsonProperty("url")
+    private String url;
 }

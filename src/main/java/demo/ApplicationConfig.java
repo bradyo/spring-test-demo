@@ -1,6 +1,6 @@
 package demo;
 
-import demo.link_shortening.bitly.BitlyLinkShorteningService;
+import demo.link_shortening.bitly.BitlyLinkShorteningServiceFactory;
 import demo.link_shortening.bitly.BitlySettings;
 import demo.link_shortening.LinkShorteningService;
 import org.springframework.cache.Cache;
@@ -27,7 +27,10 @@ public class ApplicationConfig {
     }
 
     @Bean
-    public LinkShorteningService linkShorteningService(BitlySettings bitlySettings) {
-        return new BitlyLinkShorteningService(bitlySettings.getAccessToken());
+    public LinkShorteningService linkShorteningService(
+        BitlyLinkShorteningServiceFactory bitlyLinkShorteningServiceFactory,
+        BitlySettings bitlySettings
+    ) {
+        return bitlyLinkShorteningServiceFactory.create(bitlySettings.getBaseUrl(), bitlySettings.getAccessToken());
     }
 }

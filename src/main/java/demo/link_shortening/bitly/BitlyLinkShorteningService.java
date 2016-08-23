@@ -15,10 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class BitlyLinkShorteningService implements LinkShorteningService {
 
     private final RestTemplate restTemplate;
+    private final String baseUrl;
     private final String accessToken;
 
     public String shorten(String longUrl) {
-        String url = UriComponentsBuilder.fromHttpUrl("https://bitly.com/v3/shorten")
+        String url = UriComponentsBuilder.fromHttpUrl(baseUrl + "/v3/shorten")
             .queryParam("access_token", accessToken)
             .queryParam("longUrl", longUrl)
             .build()
@@ -26,7 +27,7 @@ public class BitlyLinkShorteningService implements LinkShorteningService {
         try {
             return restTemplate.getForObject(url, BitlyShortenResponse.class)
                 .getData()
-                .getShortUrl();
+                .getUrl();
         }
         catch (RestClientException restClientException) {
             throw new ShorteningServiceException("Failed to shorten url", restClientException);

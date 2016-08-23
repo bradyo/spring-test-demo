@@ -11,10 +11,10 @@ public class BitlyLinkShorteningServiceFactory {
 
     private final BitlyRestTemplateFactory bitlyRestTemplateFactory;
 
-    public BitlyLinkShorteningService create(String accessToken) {
+    public BitlyLinkShorteningService create(String baseUrl, String accessToken) {
         RestTemplate restTemplate = bitlyRestTemplateFactory.create();
 
-        return new BitlyLinkShorteningService(restTemplate, accessToken);
+        return new BitlyLinkShorteningService(restTemplate, baseUrl, accessToken);
     }
 
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties
 public class BitlySettings {
 
+    public final String baseUrl;
+
     public final String accessToken;
 
 }
