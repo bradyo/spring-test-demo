@@ -1,16 +1,15 @@
 package demo.link_shortening.bitly;
 
-import lombok.Value;
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
-@Value
+@Data
 @Component
 @ConfigurationProperties
 public class BitlySettings {
 
-    public final String baseUrl;
-
-    public final String accessToken;
+    public String baseUrl;
+    public String accessToken;
 
 }

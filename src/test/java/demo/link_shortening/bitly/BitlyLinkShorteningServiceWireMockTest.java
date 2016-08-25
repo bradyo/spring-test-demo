@@ -1,8 +1,5 @@
 package demo.link_shortening.bitly;
 
-import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.WireMock;
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import demo.link_shortening.ShorteningServiceException;
 import org.junit.After;
 import org.junit.Before;
@@ -13,34 +10,29 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.fail;
 
-public class BitlyLinkShorteningServiceTest {
+public class BitlyLinkShorteningServiceWireMockTest {
 
+    private static final Integer wireMockPort = 8888;
     private static final String testAccessToken = "testToken";
 
-    private WireMockServer bitlyWireMockServer;
-    private WireMock bitlyWireMock;
+    private BitlyWireMock bitlyWireMock;
     private BitlyLinkShorteningService bitlyLinkShorteningService;
 
     @Before
     public void beforeTest() {
-        Integer wireMockPort = 8888;
-        WireMockConfiguration wireMockConfiguration = WireMockConfiguration.wireMockConfig().port(wireMockPort);
-        bitlyWireMockServer = new WireMockServer(wireMockConfiguration);
-        bitlyWireMockServer.start();
-        bitlyWireMock = new WireMock(wireMockPort);
+        bitlyWireMock = new BitlyWireMock(wireMockPort);
 
         BitlyLinkShorteningServiceFactory factory = new BitlyLinkShorteningServiceFactory(
             new BitlyRestTemplateFactory(
                 new BitlyObjectMapperFactory()
             )
         );
-        String baseUrl = "http://localhost:" + wireMockPort;
-        bitlyLinkShorteningService = factory.create(baseUrl, testAccessToken);
+        bitlyLinkShorteningService = factory.create(bitlyWireMock.getBaseUrl(), testAccessToken);
     }
 
     @After
     public void after() {
-        bitlyWireMockServer.stop();
+        bitlyWireMock.shutDown();
     }
 
     @Test

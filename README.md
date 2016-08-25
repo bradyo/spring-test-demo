@@ -8,8 +8,6 @@ only observable input and output behaviors.
 Mock testing focuses on testing interactions between an object and it's direct collaborators by verifying
 method calls directly.
 
-These examples also show some differences between dependency injection and encapsulated dependencies.
-
 
 ## Link Repository Examples
 
@@ -39,32 +37,7 @@ of a cache-able method, what we are actually testing is that subsequent gets mus
 
 ## External Service Error Examples
 
-// todo
-
-- mock external service calls to simulate errors
+- mock external service calls to simulate errors (http errors, timeout, remote server errors)
 - create stub implementations with different behaviors to allow black-box testing
-
-
-## Side Note on Encapsulating Dependencies
-
-Because black-box testing tests behaviors of the public interface of a class, arguments injected
-through the public constructor are part of that interface. 
-
-Having an object construct dependencies itself will eliminate it from the public interface of the
-class, thereby encapsulating the implementation details within the class. 
-
-For more information see the following:
-
-- Encapsulation
-- Information Hiding
-- Dependency Elimination Principal
-
-Such encapsulation of dependencies makes mock based interaction testing very difficult since
-encapsulated dependencies can no longer be mocked and injected. However, it makes very little difference
-for black-box testing since black-box tests are affected only by the public interface and not the 
-implementation details of a class.
-
-Combining dependency encapsulation and black box testing can create code and tests that
-are more easily refactored. A class can be refactored significantly without changing the public
-interface and tests will not need to be changed.
+- can record input and output of remote server for tests
 

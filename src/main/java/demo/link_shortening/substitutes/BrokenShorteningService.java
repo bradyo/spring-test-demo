@@ -1,5 +1,7 @@
-package demo.link_shortening;
+package demo.link_shortening.substitutes;
 
+import demo.link_shortening.LinkShorteningService;
+import demo.link_shortening.ShorteningServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
